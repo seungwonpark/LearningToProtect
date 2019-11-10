@@ -1,0 +1,24 @@
+data:
+  plain: 32
+  key: 32
+  cipher: 32
+---
+alice:
+  depth: 5
+  hidden: 64
+---
+bob:
+  depth: 5
+  hidden: 64
+---
+eve:
+  deptH: 5
+  hidden: 64
+---
+train:
+  adam:
+    lr: 0.001
+---
+log:
+  log_dir: 'logs'
+  validation: 1

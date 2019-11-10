@@ -18,7 +18,7 @@ def validate(hp, args, alice, bob, eve, valloader, writer, step):
     acc_e = correct_e / len(valloader.dataset)
     acc_b = correct_b / len(valloader.dataset)
 
-    writer.log_accuracy(acc_e, acc_b, step)
-    print('Accuracy(%%): Eve %.1f Bob %.1f' % (100.*acc_e, 100.*acc_b))
+    writer.log_accuracy(acc_b, acc_e, step)
+    print('Accuracy(%%): Bob %.1f Eve %.1f' % (100.*acc_b, 100.*acc_e))
 
     alice.train(); bob.train(); eve.train()

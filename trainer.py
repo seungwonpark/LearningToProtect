@@ -10,19 +10,19 @@ from nncrypt.data import create_dataloader
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
-	parser.add_argument('-c', '--config', type=str, required=True,
-						help="yaml file for configuration")
-	parser.add_argument('-n', '--name', type=str, required=True,
-						help="name of the run for logging")
-	args = parser.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-c', '--config', type=str, required=True,
+                        help="yaml file for configuration")
+    parser.add_argument('-n', '--name', type=str, required=True,
+                        help="name of the run for logging")
+    args = parser.parse_args()
 
-	hp = HParam(args.config)
-	with open(args.config, 'r') as f:
-		hp_str = ''.join(f.readlines())
+    hp = HParam(args.config)
+    with open(args.config, 'r') as f:
+        hp_str = ''.join(f.readlines())
 
-	log_dir = os.path.join(hp.log.log_dir, args.name)
-	os.makedirs(log_dir, exist_ok=True)
+    log_dir = os.path.join(hp.log.log_dir, args.name)
+    os.makedirs(log_dir, exist_ok=True)
 
     logging.basicConfig(
         level=logging.INFO,

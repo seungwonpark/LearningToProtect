@@ -17,8 +17,11 @@ class Alice(nn.Module):
     def forward(self, p, k):
         x = torch.cat((p, k), dim=-1)
 
-        for layer in self.mlp:
-            x = F.relu(layer(x))
+        for idx, layer in enumerate(self.mlp):
+            if idx == 0:
+                x = F.relu(layer(x))
+            else:
+                x = F.relu(x + layer(x))
 
         x = torch.tanh(self.last(x))
         return x
@@ -38,8 +41,11 @@ class Bob(nn.Module):
     def forward(self, c, k):
         x = torch.cat((c, k), dim=-1)
 
-        for layer in self.mlp:
-            x = F.relu(layer(x))
+        for idx, layer in enumerate(self.mlp):
+            if idx == 0:
+                x = F.relu(layer(x))
+            else:
+                x = F.relu(x + layer(x))
 
         x = torch.tanh(self.last(x))
         return x
@@ -59,8 +65,11 @@ class Eve(nn.Module):
     def forward(self, c):
         x = c
 
-        for layer in self.mlp:
-            x = F.relu(layer(x))
+        for idx, layer in enumerate(self.mlp):
+            if idx == 0:
+                x = F.relu(layer(x))
+            else:
+                x = F.relu(x + layer(x))
 
         x = torch.tanh(self.last(x))
         return x

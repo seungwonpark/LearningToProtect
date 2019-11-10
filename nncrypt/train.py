@@ -55,7 +55,7 @@ def train(args, trainloader, valloader, writer, logger, hp, hp_str):
                 out_b = bob(cipher, keyAB)
                 loss_e = criterion(plainAB, out_e)
                 loss_b = criterion(plainAB, out_b)
-                loss_ab = loss_b - loss_e
+                loss_ab = loss_b + (1. - loss_e).pow(2)
                 loss_ab.backward()
                 optim_ab.step()
                 loss_b = loss_b.item()

@@ -38,7 +38,7 @@ class BitsDataset(Dataset):
             return plainE, keyE
     
     def rand(self, size):
-        x = np.random.randint(0, 2, size=size)
+        x = 2. * np.random.randint(0, 2, size=size) - 1.
         x = x.astype(np.float32)
         x = torch.from_numpy(x)
         return x

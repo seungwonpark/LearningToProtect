@@ -32,7 +32,7 @@ def train(args, trainloader, valloader, writer, logger, hp, hp_str):
                 with torch.no_grad():
                     validate(hp, args, alice, bob, eve, valloader, writer, step)
 
-            loader = tqdm.tqdm(trainloader):
+            loader = tqdm.tqdm(trainloader)
             for plainE, keyE, plainAB, keyAB in loader:
                 plainE = plainE.cuda()
                 keyE = keyE.cuda()

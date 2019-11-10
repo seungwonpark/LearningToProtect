@@ -20,7 +20,7 @@ class Alice(nn.Module):
         for layer in self.mlp:
             x = F.relu(layer(x))
 
-        x = F.tanh(self.last(x))
+        x = torch.tanh(self.last(x))
         return x
 
 
@@ -41,7 +41,7 @@ class Bob(nn.Module):
         for layer in self.mlp:
             x = F.relu(layer(x))
 
-        x = F.tanh(self.last(x))
+        x = torch.tanh(self.last(x))
         return x
 
 
@@ -62,5 +62,5 @@ class Eve(nn.Module):
         for layer in self.mlp:
             x = F.relu(layer(x))
 
-        x = F.tanh(self.last(x))
+        x = torch.tanh(self.last(x))
         return x

@@ -12,10 +12,13 @@ bob:
   hidden: 64
 ---
 eve:
-  deptH: 5
+  depth: 5
   hidden: 64
 ---
 train:
+  batch_size: 4096
+  num_workers: 16
+  steps: [250, 2] # steps per epoch for train/val
   adam:
     lr: 0.001
 ---

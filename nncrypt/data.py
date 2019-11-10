@@ -7,26 +7,39 @@ from torch.utils.data import Dataset, DataLoader
 
 def create_dataloader(hp, train):
     dataset = BitsDataset(hp, train)
-    return DataLoader(dataset=dataset, batch_size=256, shuffle=True, num_workers=0, pin_memory=True, drop_last=True)
+    return DataLoader(dataset=dataset,
+            batch_size=hp.train.batch_size,
+            shuffle=True,
+            num_workers=hp.train.num_workers,
+            pin_memory=True,
+            drop_last=True)
 
 
 class BitsDataset(Dataset):
     def __init__(self, hp, train):
+        self.hp = hp
         self.train = train
-        self.plain_len = hp.data.plain
-        self.key_len = hp.data.key
-        self.steps = 1000 if self.train else 10
+        self.plain = hp.data.plain
+        self.key = hp.data.key
+        self.steps = self.hp.train.steps[0 if self.train else 1]
 
     def __len__(self):
-        return 256 * self.steps
+        return self.hp.train.batch_size * self.steps
 
     def __getitem__(self, idx):
-        plainE = np.random.randint(0, 2, size=(plain_len))
-        keyE = np.random.randint(0, 2, size=(key_len))
-        plainAB = np.random.randint(0, 2, size=(plain_len))
-        keyAB = np.random.randint(0, 2, size=(key_len))
+        plainE = self.rand(self.plain)
+        keyE = self.rand(self.key)
+        plainAB = self.rand(self.plain)
+        keyAB = self.rand(self.key)
 
         if self.train:
             return plainE, keyE, plainAB, keyAB
         else:
             return plainE, keyE
+    
+    def rand(self, size):
+        x = np.random.randint(0, 2, size=size)
+        x = x.astype(np.float32)
+        x = torch.from_numpy(x)
+        return x
+

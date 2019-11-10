@@ -19,5 +19,14 @@ Implementation of [Learning to Protect Communications with Adversarial Neural Cr
 
 `tensorboard --logdir logs/`
 
+## Results
+
+Result with `config/default.yaml`, trained on GTX 1080 for 1 hour.
+
+- Accuracy: (Green: Bob, Gray: Eve, Orange: Random guess)
+- Loss: (Green: B, Gray: E, Magenta: AB)
+
+![](./assets/tensorboard.png)
+
 ## License
 Apache License v2.0
